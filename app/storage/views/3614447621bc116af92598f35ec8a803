@@ -1,0 +1,8 @@
+<?php echo Form::open(array('url'=>'#', 'class'=>'form')); ?>
+
+	<?php echo Form::label('interno', 'Informe o Interno: '); ?>
+
+	<?php echo Form::select('interno_id', array('0'=>'Selecione ...')+Interno::all()->lists('nome', 'id'), null, array('class'=>'form-control')); ?>
+
+<?php echo Form::close(); ?>
+

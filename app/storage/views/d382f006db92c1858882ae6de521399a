@@ -1,0 +1,23 @@
+<?php $__env->startSection('main'); ?>
+	<?php echo $__env->make('internos.topo', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo Form::open(array('name'=>'frequencia')); ?>
+
+		<div class="form-group">
+	      <?php echo Form::label('nome', 'Nome: '); ?>
+
+	      <?php echo Form::select('interno_id', array('0'=>'Selecione...')+Interno::all()->lists('nome', 'id'), null, array('class'=>'form-control', 'id'=>'interno_id')); ?>
+
+	    </div>
+	    <div class="form-group">
+	      <?php echo Form::label('mes_ano', 'Mes/Ano: '); ?>
+
+	      <?php echo Form::text('mesano', null, array('class'=>'form-control', 'id'=>'mesano') ); ?>
+
+	    </div>
+<?php echo link_to('#', 'Adicionar', array('class'=>'btn btn-success',
+	    			'onclick'=>'open("/frequencia/create?interno="+document.getElementById("interno_id").value+"&mesano="+document.getElementById("mesano").value, "Frequencia", "channelmode=yes")')); ?>
+
+	    <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

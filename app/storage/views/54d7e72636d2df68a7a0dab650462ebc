@@ -1,0 +1,9 @@
+<?php $__env->startSection('main'); ?>
+	<?php echo $__env->make('internos.topo', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo link_to_route('internos.create', 'Adicionar', null, array('class'=>'btn btn-success')); ?>
+
+	<div>
+		<?php echo $__env->make('internos.lista', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
