@@ -2,7 +2,7 @@
 
 @section('main')
 	@include('internos.topo')
-	{{ Form::open(array('name'=>'frequencia')) }}
+	
 		<div class="form-group">
 	      {{ Form::label('nome', 'Nome: ') }}
 	      {{ Form::select('interno_id', array('0'=>'Selecione...')+Interno::all()->lists('nome', 'id'), null, array('class'=>'form-control', 'id'=>'interno_id'))  }}
@@ -12,6 +12,6 @@
 	      {{ Form::text('mesano', null, array('class'=>'form-control', 'id'=>'mesano') ) }}
 	    </div>
 {{ link_to('#', 'Adicionar', array('class'=>'btn btn-success',
-	    			'onclick'=>'open("/frequencia/create?interno="+document.getElementById("interno_id").value+"&mesano="+document.getElementById("mesano").value, "Frequencia", "channelmode=yes")')) }}
-	    {{ Form::close() }}
+	    			'onclick'=>'open("/frequencia/index.php/create?interno="+document.getElementById("interno_id").value+"&mesano="+document.getElementById("mesano").value, "Frequencia", "channelmode=yes")')) }}
+
 @endsection
