@@ -12,6 +12,6 @@
 	      {{ Form::text('mesano', null, array('class'=>'form-control', 'id'=>'mesano') ) }}
 	    </div>
 {{ link_to('#', 'Adicionar', array('class'=>'btn btn-success',
-	    			'onclick'=>'open("index.php/frequencia/create?interno="+document.getElementById("interno_id").value+"&mesano="+document.getElementById("mesano").value, "Frequencia", "channelmode=yes")')) }}
+	    			'onclick'=>'open("/index.php/frequencia/create?interno="+document.getElementById("interno_id").value+"&mesano="+document.getElementById("mesano").value, "Frequencia", "channelmode=yes")')) }}
 
 @endsection
