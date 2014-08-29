@@ -75,7 +75,7 @@
       var saida = document.getElementById('saida'+id).value
       var interno = document.getElementById('interno_id').value
 
-      $.post('/frequencia',
+      $.post('/index.php/frequencia',
                           { data: date, 
                             entrada: entrada,
                             saida: saida,
