@@ -1143,3 +1143,25 @@ Stack trace:
 #17 /home/tiago/sistemas/internos/public/index.php(49): Illuminate\Foundation\Application->run()
 #18 /home/tiago/sistemas/internos/server.php(19): require_once('/home/tiago/sis...')
 #19 {main} [] []
+[2014-08-28 20:46:26] production.ERROR: exception 'ErrorException' with message 'Undefined offset: 1' in /home/tiago/sistemas/internos/app/controllers/InternoFrequenciaController.php:44
+Stack trace:
+#0 /home/tiago/sistemas/internos/app/controllers/InternoFrequenciaController.php(44): Illuminate\Exception\Handler->handleError(8, 'Undefined offse...', '/home/tiago/sis...', 44, Array)
+#1 [internal function]: InternoFrequenciaController->create()
+#2 /home/tiago/sistemas/internos/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/tiago/sistemas/internos/bootstrap/compiled.php(5784): Illuminate\Routing\Controller->callAction('create', Array)
+#4 /home/tiago/sistemas/internos/bootstrap/compiled.php(5772): Illuminate\Routing\ControllerDispatcher->call(Object(InternoFrequenciaController), Object(Illuminate\Routing\Route), 'create')
+#5 /home/tiago/sistemas/internos/bootstrap/compiled.php(4971): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'InternoFrequenc...', 'create')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}()
+#7 /home/tiago/sistemas/internos/bootstrap/compiled.php(5330): call_user_func_array(Object(Closure), Array)
+#8 /home/tiago/sistemas/internos/bootstrap/compiled.php(4996): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/tiago/sistemas/internos/bootstrap/compiled.php(4984): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/tiago/sistemas/internos/bootstrap/compiled.php(717): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/tiago/sistemas/internos/bootstrap/compiled.php(698): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/tiago/sistemas/internos/bootstrap/compiled.php(7706): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/tiago/sistemas/internos/bootstrap/compiled.php(8309): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/tiago/sistemas/internos/bootstrap/compiled.php(8256): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/tiago/sistemas/internos/bootstrap/compiled.php(10895): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/tiago/sistemas/internos/bootstrap/compiled.php(659): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/tiago/sistemas/internos/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 /home/tiago/sistemas/internos/server.php(19): require_once('/home/tiago/sis...')
+#19 {main} [] []
