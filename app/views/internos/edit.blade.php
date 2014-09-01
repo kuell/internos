@@ -4,7 +4,10 @@
 
   		@include('internos.topo')
 
-	{{ Form::open(array('route' => 'internos.store', 'rule'=>'form')) }}
+	{{ Form::model($interno, array('method' => 'PATCH',
+                                                 'route' => array('internos.update', $interno->id) ,
+                                                 'rule'=>'form'))
+                                                 }}
 		@include('internos.form')
 	{{ Form::close() }}
 

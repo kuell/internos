@@ -9,9 +9,33 @@
 	    </div>
 	    <div class="form-group">
 	      {{ Form::label('mes_ano', 'Mes/Ano: ') }}
-	      {{ Form::text('mesano', null, array('class'=>'form-control', 'id'=>'mesano') ) }}
+	      {{ Form::text('mesano', null, array('class'=>'form-control mesAno', 'id'=>'mesano') ) }}
 	    </div>
-{{ link_to('#', 'Adicionar', array('class'=>'btn btn-success',
-	    			'onclick'=>'open("/index.php/frequencia/create?interno="+document.getElementById("interno_id").value+"&mesano="+document.getElementById("mesano").value, "Frequencia", "channelmode=yes")')) }}
+	    
+{{ link_to('#', 'Adicionar', array('class'=>'btn btn-success abre')) }}
+
+<script type="text/javascript">
+	$(function(){
+		$('.mesAno').mask('99/2099');
+		$('.abre').click(function(){
+			if($('select[name=interno_id]').val() == 0){
+				alert('O campo Nome do Interno deve ser preenchido!')
+				$('select[name=interno_id]').focus();
+				return false;
+			}
+			if( $('input[name=mesano]').val() == ''){
+				alert('O campo de referencia Mes/Ano deve ser preenchido!')
+				 $('input[name=mesano]').focus()
+				return false;
+			}
+			else{
+				interno = $('select[name=interno_id]').val()
+				mes = $('input[name=mesano]').val()
+
+				open('/frequencia/create?interno='+interno+'&mesano='+mes, 'Frequencia', 'channelmode=yes');
+				};
+		})
+	})
+</script>
 
 @endsection

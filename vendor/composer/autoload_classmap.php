@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AlterSetorTable' => $baseDir . '/app/database/migrations/2014_09_01_141240_alter_setor_table.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
     'Boris\\CLIOptionsHandler' => $vendorDir . '/d11wtq/boris/lib/Boris/CLIOptionsHandler.php',
@@ -416,6 +417,11 @@ return array(
     'Illuminate\\Workbench\\PackageCreator' => $vendorDir . '/laravel/framework/src/Illuminate/Workbench/PackageCreator.php',
     'Illuminate\\Workbench\\Starter' => $vendorDir . '/laravel/framework/src/Illuminate/Workbench/Starter.php',
     'Illuminate\\Workbench\\WorkbenchServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Workbench/WorkbenchServiceProvider.php',
+    'Interno' => $baseDir . '/app/models/Interno.php',
+    'InternoFrequencia' => $baseDir . '/app/models/InternoFrequencia.php',
+    'InternoFrequenciaController' => $baseDir . '/app/controllers/InternoFrequenciaController.php',
+    'InternoTableSeeder' => $baseDir . '/app/database/seeds/InternoTableSeeder.php',
+    'InternosController' => $baseDir . '/app/controllers/InternosController.php',
     'Jeremeamia\\SuperClosure\\ClosureLocation' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/ClosureLocation.php',
     'Jeremeamia\\SuperClosure\\ClosureParser' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/ClosureParser.php',
     'Jeremeamia\\SuperClosure\\SerializableClosure' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/SerializableClosure.php',
@@ -957,6 +963,8 @@ return array(
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
+    'Setor' => $baseDir . '/app/models/Setor.php',
+    'SetorTableSeeder' => $baseDir . '/app/database/seeds/SetorTableSeeder.php',
     'Stack\\Builder' => $vendorDir . '/stack/builder/src/Stack/Builder.php',
     'Stack\\StackedHttpKernel' => $vendorDir . '/stack/builder/src/Stack/StackedHttpKernel.php',
     'Symfony\\Component\\BrowserKit\\Client' => $vendorDir . '/symfony/browser-kit/Symfony/Component/BrowserKit/Client.php',

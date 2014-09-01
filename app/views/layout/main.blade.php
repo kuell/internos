@@ -16,6 +16,17 @@
     {{ HTML::style('assets/font-awesome/css/font-awesome.min.css') }}
     <!-- Page Specific CSS -->
     {{ HTML::style('http://cdn.oesmith.co.uk/morris-0.4.3.min.css') }}
+    {{ HTML::script('assets/js/jquery-1.10.2.js') }}
+    {{ HTML::script('assets/js/angular.min.js') }}
+    {{ HTML::script('assets/js/jquery.maskedinput.js') }}
+    <script type="text/javascript">
+    $(function(){
+      $('input[type=text]').blur(function(){
+        var str = $(this).val().toUpperCase()
+        $(this).val(str)
+      })
+    })
+    </script>
   </head>
 
   <body>
@@ -39,8 +50,9 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li>
-              <a href="/index.php/internos"><i class="fa fa-dashboard"></i> Cadastro de Interno</a>
-              <a href="/index.php/frequencia"><i class="fa fa-dashboard"></i> Frequencia dos Internos</a>
+              {{ link_to_route('setors.index', 'Setor') }}
+              {{ link_to_route('internos.index', 'Internos') }}
+              {{ link_to_route('frequencia.index', 'Frequencia dos Internos') }}
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -48,6 +60,22 @@
 
       <div id="page-wrapper">
         <div class="row">
+          @if (Session::has('message'))
+            <div class="alert alert-warning fade in">
+              <button type="button" class="btn close" data-dismiss="alert" aria-hidden="true">
+                ×
+              </button>
+              <strong>
+                {{ Session::get('message') }}
+              </strong>
+              @if ($errors->any())
+                <ul>
+                  {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+                </ul>
+              @endif
+            </div>
+          @endif
+
           @yield('main')
         </div>
       </div><!-- /#page-wrapper -->
@@ -55,11 +83,11 @@
     </div><!-- /#wrapper -->
 
     <!-- JavaScript -->
-    {{ HTML::script('assets/js/jquery-1.10.2.js') }}
-    {{ HTML::script('assets/js/bootstrap.js') }}
+
+
 
     <!-- Page Specific Plugins -->
-    {{-- 
+    {{--
     {{ HTML::script('assets/http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js') }}
     {{ HTML::script('assets/http://cdn.oesmith.co.uk/morris-0.4.3.min.js') }}
     {{ HTML::script('assets/js/morris/chart-data-morris.js') }}

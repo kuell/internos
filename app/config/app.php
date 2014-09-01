@@ -11,7 +11,7 @@ return array(
 	| stack traces will be shown on every error that occurs within your
 	| application. If disabled, a simple generic error page is shown.
 	|
-	*/
+	 */
 
 	'debug' => true,
 
@@ -24,9 +24,9 @@ return array(
 	| the Artisan command line tool. You should set this to the root of
 	| your application so that it is used when running Artisan tasks.
 	|
-	*/
+	 */
 
-	'url' => 'http://localhost',
+	'url' => 'http://sig.dev',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ return array(
 	| will be used by the PHP date and date-time functions. We have gone
 	| ahead and set this to a sensible default for you out of the box.
 	|
-	*/
+	 */
 
 	'timezone' => 'UTC',
 
@@ -50,9 +50,9 @@ return array(
 	| by the translation service provider. You are free to set this value
 	| to any of the locales which will be supported by the application.
 	|
-	*/
+	 */
 
-	'locale' => 'en',
+	'locale' => 'pt_BR',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return array(
 	| is not available. You may change the value to correspond to any of
 	| the language folders that are provided through your application.
 	|
-	*/
+	 */
 
 	'fallback_locale' => 'en',
 
@@ -76,7 +76,7 @@ return array(
 	| to a random, 32 character string, otherwise these encrypted strings
 	| will not be safe. Please do this before deploying an application!
 	|
-	*/
+	 */
 
 	'key' => 'SYSWIstzZDq5mR6fRYyRZRm2VQPbcure',
 
@@ -91,7 +91,7 @@ return array(
 	| request to your application. Feel free to add your own services to
 	| this array to grant expanded functionality to your applications.
 	|
-	*/
+	 */
 
 	'providers' => array(
 
@@ -133,7 +133,7 @@ return array(
 	| providers which are not needed for each request, as well to keep a
 	| list of all of the services. Here, you may set its storage spot.
 	|
-	*/
+	 */
 
 	'manifest' => storage_path().'/meta',
 
@@ -146,7 +146,7 @@ return array(
 	| is started. However, feel free to register as many as you wish as
 	| the aliases are "lazy" loaded so they don't hinder performance.
 	|
-	*/
+	 */
 
 	'aliases' => array(
 

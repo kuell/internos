@@ -1,15 +1,14 @@
 <?php
 
-class InternosController extends \BaseController {
+class SetorsController extends \BaseController {
 
 	private $rules = array(
-		'nome'     => 'required|unique:internos,nome',
-		'setor_id' => 'required',
+		'descricao' => 'required|unique:setors,descricao',
 	);
-	private $internos;
+	private $setors;
 
-	public function __construct(Interno $interno) {
-		$this->internos = $interno;
+	public function __construct(Setor $setor) {
+		$this->setors = $setor;
 	}
 
 	/**
@@ -18,9 +17,9 @@ class InternosController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		$internos = $this->internos->orderBy('situacao', 'desc')->orderBy('cod_interno')->get();
+		$setors = $this->setors->orderBy('descricao')->get();
 
-		return View::make('internos.index', compact('internos'));
+		return View::make('setors.index', compact('setors'));
 	}
 
 	/**
@@ -29,7 +28,7 @@ class InternosController extends \BaseController {
 	 * @return Response
 	 */
 	public function create() {
-		return View::make('internos.create');
+		return View::make('setors.create');
 	}
 
 	/**
@@ -43,12 +42,12 @@ class InternosController extends \BaseController {
 		$validation = Validator::make($input, $this->rules);
 
 		if ($validation->passes()) {
-			$this->internos->create($input);
+			$this->setors->create($input);
 
-			return Redirect::route('internos.index');
+			return Redirect::route('setors.index');
 		}
 
-		return Redirect::route('internos.create')
+		return Redirect::route('setors.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'Houve erros na validação dos dados.');
@@ -71,9 +70,9 @@ class InternosController extends \BaseController {
 	 * @return Response
 	 */
 	public function edit($id) {
-		$interno = $this->internos->find($id);
+		$setor = $this->setors->find($id);
 
-		return View::make('internos.edit', compact('interno'));
+		return View::make('setors.edit', compact('setor'));
 	}
 
 	/**
@@ -85,18 +84,18 @@ class InternosController extends \BaseController {
 	public function update($id) {
 		$input = array_except(Input::all(), '_method');
 
-		$this->rules['nome'] = 'required|unique:internos,nome,'.$id;
+		$this->rules = array('descricao' => 'required|unique:setors,descricao,'.$id);
 
 		$validation = Validator::make($input, $this->rules);
 
 		if ($validation->passes()) {
-			$interno = $this->internos->find($id);
-			$interno->update($input);
+			$setor = $this->setors->find($id);
+			$setor->update($input);
 
-			return Redirect::route('internos.index');
+			return Redirect::route('setors.index');
 		}
 
-		return Redirect::route('internos.edit', $id)
+		return Redirect::route('setors.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'Houve erros na validação dos dados.');
