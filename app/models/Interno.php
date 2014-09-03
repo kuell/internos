@@ -7,6 +7,10 @@ class Interno extends Eloquent {
 		return $this->belongsTo('Setor', 'setor_id');
 	}
 
+	public function frequencia() {
+		return $this->hasMany('InternoFrequencia', 'interno_id');
+	}
+
 	public function getSituacaoAttribute() {
 		if ($this->attributes['situacao']) {
 			return 1;

@@ -37,9 +37,9 @@
             </tr>
           @else
             <tr>
-         
+
              <td>{{ Form::text("data$i", date('d/m/Y', strtotime($data[1]."-".$data[0]."-".$i)), array('class'=>'form-control', 'id'=>"data$i")) }}</td>
-             	
+
              	@if(!empty($valor[$i]['entrada']))
               		<td>{{ Form::text("entrada$i", $valor[$i]['entrada'] , array('class'=>'form-control hora', 'tabindex'=>'1', 'id'=>"entrada$i")) }}</td>
               	@else
@@ -51,17 +51,13 @@
               	@else
               		 <td>{{ Form::text("saida$i", null, array('class'=>'form-control hora', 'tabindex'=>'1', 'onblur'=>"add($i)", 'id'=>"saida$i")) }}</td>
               	@endif
-              
-             
+
+
             </tr>
           @endif
       @endfor
       </tbody>
     </table>
-
-  <button type="submit" class="btn btn-primary">Incluir</button>
-  {{ link_to_route('frequencia.index', 'Cancelar', null, array('class'=>'btn btn-danger')) }}
-
 </fieldset>
 
   <script type="text/javascript">
@@ -76,7 +72,7 @@
       var interno = document.getElementById('interno_id').value
 
       $.post('/index.php/frequencia',
-                          { data: date, 
+                          { data: date,
                             entrada: entrada,
                             saida: saida,
                             interno_id: interno

@@ -15,9 +15,20 @@
       {{ Form::select('situacao', array(1=>'ativo', 0=>'inativo'), null, array('class'=>'form-control') ) }}
     </div>
 
+    <div class="form-group col-md-4">
+      {{ Form::label('padrao_horatrabalho', 'Padrão de Horas Trabalhadas: ') }}
+      {{ Form::text('padrao_horatrabalho', null, array('class'=>'form-control hora') ) }}
+    </div>
+
 <div class="col-md-9">
   <button type="submit" class="btn btn-primary">Gravar</button>
   {{ link_to_route('setors.index', 'Cancelar', null, array('class'=>'btn btn-danger')) }}
 
   </fieldset>
+
+  <script type="text/javascript">
+  $(function(){
+    $('.hora').mask('99:99')
+  })
+  </script>
 </div>

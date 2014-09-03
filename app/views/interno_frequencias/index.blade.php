@@ -2,7 +2,7 @@
 
 @section('main')
 	@include('internos.topo')
-	
+
 		<div class="form-group">
 	      {{ Form::label('nome', 'Nome: ') }}
 	      {{ Form::select('interno_id', array('0'=>'Selecione...')+Interno::all()->lists('nome', 'id'), null, array('class'=>'form-control', 'id'=>'interno_id'))  }}
@@ -11,8 +11,9 @@
 	      {{ Form::label('mes_ano', 'Mes/Ano: ') }}
 	      {{ Form::text('mesano', null, array('class'=>'form-control mesAno', 'id'=>'mesano') ) }}
 	    </div>
-	    
+
 {{ link_to('#', 'Adicionar', array('class'=>'btn btn-success abre')) }}
+{{ link_to('#', 'Lista de Horarios / Horas Extra', array('class'=>'btn btn-success setorAbre')) }}
 
 <script type="text/javascript">
 	$(function(){
@@ -34,6 +35,9 @@
 
 				open('/frequencia/create?interno='+interno+'&mesano='+mes, 'Frequencia', 'channelmode=yes');
 				};
+		})
+		$('.setorAbre').click(function(){
+			open('/report/08-2014/horasSetor', 'Frequencia', 'channelmode=yes');
 		})
 	})
 </script>
