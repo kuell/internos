@@ -42,13 +42,20 @@ class ReportsController extends \BaseController {
 	public function horasTrabSetor($mesano) {
 		$res = DB::select('select
 								c.descricao as setor,
+								(Select
+									sum(saida-entrada) as totalHoras
+								from
+									interno_frequencias) as totalHoras,
 								sum(b.saida - b.entrada) as horas
 							from
 								internos a
 								inner join interno_frequencias b on a.id = b.interno_id
 								inner join setors c on a.setor_id = c.id
 							group by
-								c.descricao');
+								c.descricao, (Select
+													sum(saida-entrada) as totalHoras
+												from
+													interno_frequencias)');
 
 		return View::make('interno_frequencias.reports.horas_setor')
 			->with('dados', $res);
