@@ -8,6 +8,9 @@
 	Setor: {{ $interno->setor->descricao }}<br />
 	Padrão de Horas Trabalhadas: {{ $interno->setor->padrao_horatrabalho }}<br />
 
+<?php
+$totalHora = "00:00:00";
+?>
 <table class="table table-bordered">
 		<tr>
 			<td>
@@ -22,26 +25,30 @@
 					@for ($i = 1; $i < (cal_days_in_month(CAL_GREGORIAN, $data[0], $data[1])-14);$i++)
 						<tr>
 						@if(date('N', strtotime($data[1].'-'.$data[0].'-'.$i)) == 7)
-							<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
-							<td>Domingo</td>
-							<td>Domingo</td>
-							<td>Domingo</td>
-							<td>00:00:00</td>
+							<tr class="danger">
+								<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
+								<td>Domingo</td>
+								<td>Domingo</td>
+								<td>Domingo</td>
+								<td>00:00:00</td>
+							</tr>
 						@else
-							<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
-							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['entrada'] or '' }}</td>
-							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['saida'] or '' }}</td>
-							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horasTrabalhadas'] or '' }}</td>
+							<tr>
+								<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['entrada'] or '' }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['saida'] or '' }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horasTrabalhadas'] or '' }}</td>
 
-							@if(empty($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra']))
-								<td>00:00:00</td>
-							@elseif ($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] < 0)
-								<td>00:00:00</td>
-							@else
-								<td class="well">{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] }}</td>
-							@endif
+									@if(empty($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra']))
+										<td>00:00:00</td>
+									@elseif ($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] < 0)
+										<td>00:00:00</td>
+									@else
+										<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] }}</td>
+<?php $totalHora = InternoFrequencia::somaHora($totalHora, $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'])?>
+@endif
+							</tr>
 						@endif
-						</tr>
 					@endfor
 				</table>
 			</td>
@@ -55,30 +62,32 @@
 						<th>Hora Extra</th>
 					</tr>
 					@for ($i = 17; $i < (cal_days_in_month(CAL_GREGORIAN, $data[0], $data[1]));$i++)
-						<tr>
 						@if(date('N', strtotime($data[1].'-'.$data[0].'-'.$i)) == 7)
+						<tr class="danger">
 							<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
 							<td>Domingo</td>
 							<td>Domingo</td>
 							<td>Domingo</td>
 							<td>00:00:00</td>
+						</tr>
 						@else
+						<tr>
 							<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
 							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['entrada'] or '' }}</td>
 							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['saida'] or '' }}</td>
 							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horasTrabalhadas'] or '' }}</td>
 
-							@if(empty($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra']))
-								<td>00:00:00</td>
-							@elseif ($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] < 0)
-								<td>00:00:00</td>
-							@else
+								@if(empty($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra']))
+									<td>00:00:00</td>
+								@elseif ($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] < 0)
+									<td>00:00:00</td>
+								@else
 
-								<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] }}</td>
-
-							@endif
+									<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] }}</td>
+<?php $totalHora = InternoFrequencia::somaHora($totalHora, $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'])?>
+								@endif
+							<tr>
 						@endif
-						</tr>
 					@endfor
 				</table>
 			</td>
@@ -86,7 +95,7 @@
 	</table>
 
 		<div class="well">
-			Total de Hora Extra: {{ InternoFrequencia::somaHora('01:50:00', "02:50:00") }}
+			Total de Hora Extra: {{ $totalHora }}
 		</div>
 
 </div>

@@ -2366,3 +2366,7 @@ Stack trace:
 #9 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(642): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #10 /var/www/rh/internos/public/index.php(49): Illuminate\Foundation\Application->run()
 #11 {main} [] []
+[2014-09-04 17:24:26] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '.'' in /var/www/rh/internos/app/models/InternoFrequencia.php:33
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []

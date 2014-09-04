@@ -22,7 +22,7 @@ class InternoFrequencia extends \Eloquent {
 		$h1 = explode(':', $hora1);
 		$h2 = explode(':', $hora2);
 
-		$hora   = str_pad(($h1[0]+$h2[0]), 3, "0", STR_PAD_LEFT);
+		$hora   = $h1[0]+$h2[0];
 		$minuto = $h1[1]+$h2[1];
 
 		if ($minuto >= 60) {
@@ -30,7 +30,7 @@ class InternoFrequencia extends \Eloquent {
 			$minuto = $minuto-60;
 		}
 
-		return $hora.":".$minuto;
+		return str_pad($hora, 2, "0", STR_PAD_LEFT).":".str_pad($minuto, 2, "0", STR_PAD_LEFT);
 
 	}
 
