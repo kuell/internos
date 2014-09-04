@@ -5,8 +5,8 @@
 	<h1>Controle de Horas Trabalhadas por Interno</h1>
 
 	Nome: {{ $interno->nome }}<br />
-	Setor: {{ $interno->setor->descricao }}<br />
-	Padrão de Horas Trabalhadas: {{ $interno->setor->padrao_horatrabalho }}<br />
+	Setor: {{ $interno->setor->descricao or 'Não Informado' }}<br />
+	Padrão de Horas Trabalhadas: {{ $interno->setor->padrao_horatrabalho or '00:00:00' }}<br />
 
 <?php
 $totalHora = "00:00:00";
