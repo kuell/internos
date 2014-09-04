@@ -40,6 +40,8 @@ class ReportsController extends \BaseController {
 	}
 
 	public function horasTrabSetor($mesano) {
+		$data = explode('-', $mesano);
+
 		$res = DB::select('select
 								c.descricao as setor,
 								(Select
@@ -51,11 +53,14 @@ class ReportsController extends \BaseController {
 								internos a
 								inner join interno_frequencias b on a.id = b.interno_id
 								inner join setors c on a.setor_id = c.id
+							where
+								extract(month from b.data) = ? and
+								extract(year from b.data) = ?
 							group by
 								c.descricao, (Select
 													sum(saida-entrada) as totalHoras
 												from
-													interno_frequencias)');
+													interno_frequencias)', array($data[0], $data[1]));
 
 		return View::make('interno_frequencias.reports.horas_setor')
 			->with('dados', $res);

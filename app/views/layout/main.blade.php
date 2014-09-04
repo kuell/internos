@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>RH - CONTROLE DE INTERNOS</title>
+    <title>RH::Controle de Internos</title>
 
     <!-- Bootstrap core CSS -->
     {{ HTML::style('assets/css/bootstrap.css') }}
@@ -16,17 +16,11 @@
     {{ HTML::style('assets/font-awesome/css/font-awesome.min.css') }}
     <!-- Page Specific CSS -->
     {{ HTML::style('http://cdn.oesmith.co.uk/morris-0.4.3.min.css') }}
-    {{ HTML::script('assets/js/jquery-1.10.2.js') }}
-    {{ HTML::script('assets/js/angular.min.js') }}
-    {{ HTML::script('assets/js/jquery.maskedinput.js') }}
-    <script type="text/javascript">
-    $(function(){
-      $('input[type=text]').blur(function(){
-        var str = $(this).val().toUpperCase()
-        $(this).val(str)
-      })
-    })
-    </script>
+
+     <!-- JavaScript -->
+  {{ HTML::script('assets/js/jquery-1.10.2.js') }}
+  {{ HTML::script('assets/js/bootstrap.js') }}
+  {{ HTML::script('assets/js/jquery.maskedinput.js') }}
   </head>
 
   <body>
@@ -53,6 +47,13 @@
               {{ link_to_route('setors.index', 'Setor') }}
               {{ link_to_route('internos.index', 'Internos') }}
               {{ link_to_route('frequencia.index', 'Frequencia dos Internos') }}
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Relatorios <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>{{ link_to('reports/horaInterno', 'Relatorio de Horas Por Interno') }}</li>
+              </ul>
+            </li>
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -81,19 +82,5 @@
       </div><!-- /#page-wrapper -->
 
     </div><!-- /#wrapper -->
-
-    <!-- JavaScript -->
-
-
-
-    <!-- Page Specific Plugins -->
-    {{--
-    {{ HTML::script('assets/http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js') }}
-    {{ HTML::script('assets/http://cdn.oesmith.co.uk/morris-0.4.3.min.js') }}
-    {{ HTML::script('assets/js/morris/chart-data-morris.js') }}
-    {{ HTML::script('assets/js/tablesorter/jquery.tablesorter.js') }}
-    {{ HTML::script('assets/js/tablesorter/tables.js') }}
-     --}}
-
   </body>
 </html>

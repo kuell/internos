@@ -27,21 +27,10 @@ class InternoFrequencia extends \Eloquent {
 
 		if ($minuto >= 60) {
 			$hora   = $hora+1;
-			$minuto = 0;
+			$minuto = $minuto-60;
 		}
 
-		$segundo = $h1[2]+$h2[2];
-
-		if ($segundo >= 60) {
-			$minuto = $minuto+1;
-			if ($minuto >= 60) {
-				$hora   = $hora+1;
-				$minuto = 0;
-			}
-			$segundo = 0;
-		}
-
-		return $hora.":".$minuto.":".$segundo;
+		return $hora.":".$minuto;
 
 	}
 

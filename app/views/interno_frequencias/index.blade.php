@@ -13,11 +13,11 @@
 	    </div>
 
 {{ link_to('#', 'Adicionar', array('class'=>'btn btn-success abre')) }}
-{{ link_to('#', 'Lista de Horarios / Horas Extra', array('class'=>'btn btn-success setorAbre')) }}
+{{ link_to('#', 'Horas Trabalhadas p/ Setor', array('class'=>'btn btn-success setorAbre')) }}
 
 <script type="text/javascript">
 	$(function(){
-		$('.mesAno').mask('99/2099');
+		$('.mesAno').mask('99-2099');
 		$('.abre').click(function(){
 			if($('select[name=interno_id]').val() == 0){
 				alert('O campo Nome do Interno deve ser preenchido!')
@@ -37,7 +37,16 @@
 				};
 		})
 		$('.setorAbre').click(function(){
-			open('/report/08-2014/horasSetor', 'Frequencia', 'channelmode=yes');
+			mes = $('input[name=mesano]').val()
+
+			if( $('input[name=mesano]').val() == ''){
+				alert('O campo de referencia Mes/Ano deve ser preenchido!')
+				 $('input[name=mesano]').focus()
+				return false;
+			}
+			else{
+				open('/report/'+mes+'/horasSetor', 'Frequencia', 'channelmode=yes');
+			}
 		})
 	})
 </script>

@@ -4,13 +4,13 @@ class InternoFrequenciaController extends \BaseController {
 
 	protected $frequencias;
 	protected $rules = array(
-		'interno_id'=>'required',
-		'entrada'=>'required',
-		'saida'=>'required',
-		'data'=>'required'
-		);
+		'interno_id' => 'required',
+		'entrada'    => 'required',
+		'saida'      => 'required',
+		'data'       => 'required',
+	);
 
-	public function __construct(InternoFrequencia $frequencia){
+	public function __construct(InternoFrequencia $frequencia) {
 		$this->frequencias = $frequencia;
 	}
 
@@ -19,81 +19,73 @@ class InternoFrequenciaController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
+	public function index() {
 		$frequencias = $this->frequencias->all();
 
 		return View::make('interno_frequencias.index', compact('frequencias'));
 	}
-
 
 	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create() {
 
 		$interno = Interno::find($_GET['interno']);
-		$mesano = $_GET['mesano'];
-		$data = explode('/', $mesano);
+		$mesano  = $_GET['mesano'];
+		$data    = explode('-', $mesano);
 
 		$frequencia = $this->frequencias
-								->whereRaw('extract(month from data) ='.$data[0])
-								->whereRaw('extract(year from data) ='.$data[1])
-								->where('interno_id', '=', $interno->id)
-								->get();
-			$valor = array();
-		foreach($frequencia as $f){
+		                   ->whereRaw('extract(month from data) ='.$data[0])
+		                   ->whereRaw('extract(year from data) ='.$data[1])
+		                   ->where('interno_id', '=', $interno->id)
+			->get();
+		$valor = array();
+		foreach ($frequencia as $f) {
 			$d = explode('/', $f->data);
 			$i = (Int) $d[0];
-			
-			$valor[$i] = array('entrada'=> $f->entrada,
-							   'saida'=>$f->saida);
 
+			$valor[$i] = array('entrada' => $f->entrada,
+				'saida'                     => $f->saida);
 
 		}
 
 		return View::make('interno_frequencias.create', compact('data'), compact('interno'))->with('valor', $valor);
 	}
 
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		$input = Input::all();
 
 		$valida = Validator::make($input, $this->rules);
 
-		if($valida->passes()){
-			$f = $this->frequencias;
-				$f->data = $input['data'];
-				$f->entrada = $input['entrada'];
-				$f->saida = $input['saida'];
-				$f->interno_id = $input['interno_id'];
+		if ($valida->passes()) {
+			$f             = $this->frequencias;
+			$f->data       = $input['data'];
+			$f->entrada    = $input['entrada'];
+			$f->saida      = $input['saida'];
+			$f->interno_id = $input['interno_id'];
 
 			$i = $f->where('interno_id', '=', $f->interno_id)
-					->where('data', '=', $f->data)->count();
+				->where('data', '=', $f->data)->count();
 
-			if($i == 0){
+			if ($i == 0) {
 				$f->save();
-			}
-			else{
+			} else {
 				DB::table('interno_frequencias')
 					->where('interno_id', $f->interno_id)
-					->where('data', $f->data)->update(array('entrada'=>$f->entrada, 
-																 'saida'=>$f->saida));
+					->where('data', $f->data)->update(array('entrada' => $f->entrada,
+						'saida'                                          => $f->saida));
 			}
-		}else{
+		} else {
 			print_r($valida->errors());
 		}
 	}
-
 
 	/**
 	 * Display the specified resource.
@@ -101,11 +93,9 @@ class InternoFrequenciaController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
+	public function show($id) {
 		//
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -113,11 +103,9 @@ class InternoFrequenciaController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
+	public function edit($id) {
 		//
 	}
-
 
 	/**
 	 * Update the specified resource in storage.
@@ -125,11 +113,9 @@ class InternoFrequenciaController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update($id) {
 		//
 	}
-
 
 	/**
 	 * Remove the specified resource from storage.
@@ -137,10 +123,8 @@ class InternoFrequenciaController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy($id) {
 		//
 	}
-
 
 }

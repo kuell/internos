@@ -17,5 +17,10 @@ Route::get('/', function () {
 Route::resource('internos', 'InternosController');
 Route::resource('frequencia', 'InternoFrequenciaController');
 Route::resource('setors', 'SetorsController');
+
+Route::get('reports/horaInterno', function () {
+		return View::make('reports.horaInterno');
+	});
+
 Route::get('report/{id}/{mesano}/horasInterno', 'ReportsController@horasTrabInterno');
 Route::get('report/{mesano}/horasSetor', 'ReportsController@horasTrabSetor');

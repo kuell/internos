@@ -4,8 +4,8 @@
 <div class="col-md-12">
 	<h1>Controle de Horas Trabalhadas por Setor</h1>
 	<h3>Ref: </h3>
-
-<table class="table table-condensed">
+@if ($dados)
+	<table class="table table-condensed">
 					<tr>
 						<th>Setor</th>
 						<th>Horas Trabalhadas</th>
@@ -23,5 +23,9 @@
 					</tr>
 				</table>
 </div>
+@else
+	<div class="well">Nenhum registro retornado</div>
+@endif
+
 
 @endsection
