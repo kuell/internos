@@ -3665,3 +3665,83 @@ Stack trace:
 #23 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(642): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #24 /var/www/rh/internos/public/index.php(49): Illuminate\Foundation\Application->run()
 #25 {main} [] []
+[2014-09-08 18:12:32] production.ERROR: exception 'PDOException' with message 'SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "as"
+LINE 4:         count(distinct(b.*) as internos,
+                                    ^' in /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php:287
+Stack trace:
+#0 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(287): PDOStatement->execute(Array)
+#1 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(592): Illuminate\Database\Connection->Illuminate\Database\{closure}(Object(Illuminate\Database\PostgresConnection), 'select?????????...', Array)
+#2 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(556): Illuminate\Database\Connection->runQueryCallback('select?????????...', Array, Object(Closure))
+#3 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(290): Illuminate\Database\Connection->run('select?????????...', Array, Object(Closure))
+#4 [internal function]: Illuminate\Database\Connection->select('select?????????...', Array)
+#5 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(285): call_user_func_array(Array, Array)
+#6 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Database\DatabaseManager->__call('select', Array)
+#7 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Database\DatabaseManager->select('select?????????...', Array)
+#8 /var/www/rh/internos/app/controllers/ReportsController.php(64): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#9 /var/www/rh/internos/app/controllers/ReportsController.php(64): Illuminate\Support\Facades\DB::select('select?????????...', Array)
+#10 [internal function]: ReportsController->horasTrabSetor('08-2014')
+#11 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#12 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('horasTrabSetor', Array)
+#13 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ReportsController), Object(Illuminate\Routing\Route), 'horasTrabSetor')
+#14 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ReportsControll...', 'horasTrabSetor')
+#15 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('08-2014')
+#16 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#17 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#18 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#19 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(776): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#20 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(746): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#21 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#22 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#24 /var/www/rh/internos/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#25 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(642): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#26 /var/www/rh/internos/public/index.php(49): Illuminate\Foundation\Application->run()
+#27 {main}
+
+Next exception 'Illuminate\Database\QueryException' with message 'SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near "as"
+LINE 4:         count(distinct(b.*) as internos,
+                                    ^ (SQL: select
+								a.descricao as setor,
+								a.padrao_horatrabalho as horabase,
+								count(distinct(b.*) as internos,
+								count(distinct(c.data)) as qtddias,
+								f_horastrabalhadas(a.id, 2014-08-01) as horastrabalhadas,
+								f_horaspotenciais(a.id, 2014-08-01) as horaspotenciais
+							from
+								setors a
+								inner join internos b on a.id = b.setor_id
+								inner join interno_frequencias c on b.id = c.interno_id
+							where
+								f_horaspotenciais(a.id, 2014-08-01) is not null
+							group by
+								a.descricao, horastrabalhadas, horaspotenciais, horabase
+							order by
+								a.descricao
+								)' in /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php:600
+Stack trace:
+#0 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(556): Illuminate\Database\Connection->runQueryCallback('select?????????...', Array, Object(Closure))
+#1 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/Connection.php(290): Illuminate\Database\Connection->run('select?????????...', Array, Object(Closure))
+#2 [internal function]: Illuminate\Database\Connection->select('select?????????...', Array)
+#3 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(285): call_user_func_array(Array, Array)
+#4 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Database\DatabaseManager->__call('select', Array)
+#5 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(211): Illuminate\Database\DatabaseManager->select('select?????????...', Array)
+#6 /var/www/rh/internos/app/controllers/ReportsController.php(64): Illuminate\Support\Facades\Facade::__callStatic('select', Array)
+#7 /var/www/rh/internos/app/controllers/ReportsController.php(64): Illuminate\Support\Facades\DB::select('select?????????...', Array)
+#8 [internal function]: ReportsController->horasTrabSetor('08-2014')
+#9 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#10 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('horasTrabSetor', Array)
+#11 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ReportsController), Object(Illuminate\Routing\Route), 'horasTrabSetor')
+#12 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ReportsControll...', 'horasTrabSetor')
+#13 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('08-2014')
+#14 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#15 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#16 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(776): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(746): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#19 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#20 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#21 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#22 /var/www/rh/internos/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#23 /var/www/rh/internos/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(642): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#24 /var/www/rh/internos/public/index.php(49): Illuminate\Foundation\Application->run()
+#25 {main} [] []

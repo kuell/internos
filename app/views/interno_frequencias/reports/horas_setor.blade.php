@@ -35,6 +35,9 @@ $totalInterno = $val->internos+$totalInterno;
 						<th>Totais: </th>
 						<th>{{ $totalInterno }}</th>
 						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
 					</tr>
 				</table>
 </div>
