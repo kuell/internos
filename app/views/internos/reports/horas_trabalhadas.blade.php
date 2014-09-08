@@ -6,7 +6,7 @@
 
 	Nome: {{ $interno->nome }}<br />
 	Setor: {{ $interno->setor->descricao or 'Não Informado' }}<br />
-	Padrão de Horas Trabalhadas: {{ $interno->setor->padrao_horatrabalho or '00:00:00' }}<br />
+	Parametro de Horas Potênciais: {{ $interno->setor->padrao_horatrabalho or '00:00:00' }}<br />
 
 <?php
 $totalHora = "00:00:00";

@@ -39,31 +39,29 @@ class ReportsController extends \BaseController {
 
 	}
 
-	public function horasTrabSetor($mesano) {
-		$data = explode('-', $mesano);
+	public function horasTrabSetor($data) {
+		$d = explode('-', $data);
+
+		$data = $d[1].'-'.$d[0].'-01';
 
 		$res = DB::select('select
-								c.descricao as setor,
-								(Select
-									sum(saida-entrada) as totalHoras
-								from
-									interno_frequencias) as totalHoras,
-								sum(b.saida - b.entrada) as horas
+								a.descricao as setor,
+								a.padrao_horatrabalho as horabase,
+								count(b.*) as internos,
+								f_horastrabalhadas(a.id, ?) as horastrabalhadas,
+								f_horaspotenciais(a.id, ?) as horaspotenciais
 							from
-								internos a
-								inner join interno_frequencias b on a.id = b.interno_id
-								inner join setors c on a.setor_id = c.id
+								setors a
+								inner join internos b on a.id = b.setor_id
 							where
-								extract(month from b.data) = ? and
-								extract(year from b.data) = ?
+								f_horaspotenciais(a.id, ?) is not null
 							group by
-								c.descricao, (Select
-													sum(saida-entrada) as totalHoras
-												from
-													interno_frequencias)', array($data[0], $data[1]));
+								a.descricao, horastrabalhadas, horaspotenciais, horabase
+								', array($data, $data, $data));
 
 		return View::make('interno_frequencias.reports.horas_setor')
-			->with('dados', $res);
+			->with('dados', $res)
+			->with('data', $d[0].'-'.$d[1]);
 	}
 
 }
