@@ -13,6 +13,7 @@ $totalInterno = 0;
 						<th>Setor</th>
 						<th>Qtde. Colaboradores</th>
 						<th>Hora Base do Setor</th>
+						<th>Qtd. Dias Trabalhados</th>
 						<th>Horas Trabalhadas</th>
 						<th>Horas Potenciais</th>
 					</tr>
@@ -22,6 +23,7 @@ $totalInterno = 0;
 							<td>{{ $val->setor }}</td>
 							<td>{{ $val->internos }}</td>
 							<td>{{ $val->horabase }}</td>
+							<td>{{ $val->qtddias }}</td>
 							<td>{{ $val->horastrabalhadas }}</td>
 							<th>{{ $val->horaspotenciais }} </th>
 						</tr>

@@ -47,16 +47,20 @@ class ReportsController extends \BaseController {
 		$res = DB::select('select
 								a.descricao as setor,
 								a.padrao_horatrabalho as horabase,
-								count(b.*) as internos,
+								count(distinct(b.*)) as internos,
+								count(distinct(c.data)) as qtddias,
 								f_horastrabalhadas(a.id, ?) as horastrabalhadas,
 								f_horaspotenciais(a.id, ?) as horaspotenciais
 							from
 								setors a
 								inner join internos b on a.id = b.setor_id
+								inner join interno_frequencias c on b.id = c.interno_id
 							where
 								f_horaspotenciais(a.id, ?) is not null
 							group by
 								a.descricao, horastrabalhadas, horaspotenciais, horabase
+							order by
+								a.descricao
 								', array($data, $data, $data));
 
 		return View::make('interno_frequencias.reports.horas_setor')
