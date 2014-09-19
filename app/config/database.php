@@ -11,7 +11,7 @@ return array(
 	| stdClass object; however, you may desire to retrieve records in an
 	| array format for simplicity. Here you can tweak the fetch style.
 	|
-	*/
+	 */
 
 	'fetch' => PDO::FETCH_CLASS,
 
@@ -24,7 +24,7 @@ return array(
 	| to use as your default connection for all database work. Of course
 	| you may use many connections at once using the Database library.
 	|
-	*/
+	 */
 
 	'default' => 'pgsql',
 
@@ -42,17 +42,17 @@ return array(
 	| so make sure you have the driver for your particular database of
 	| choice installed on your machine before you begin development.
 	|
-	*/
+	 */
 
 	'connections' => array(
 
-		'sqlite' => array(
+		'sqlite'    => array(
 			'driver'   => 'sqlite',
-			'database' => __DIR__.'/../database/production.sqlite',
+			'database' => __DIR__ .'/../database/production.sqlite',
 			'prefix'   => '',
 		),
 
-		'mysql' => array(
+		'mysql'      => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'forge',
@@ -63,7 +63,7 @@ return array(
 			'prefix'    => '',
 		),
 
-		'pgsql' => array(
+		'pgsql'     => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
 			'database' => 'internos',
@@ -74,7 +74,7 @@ return array(
 			'schema'   => 'public',
 		),
 
-		'sqlsrv' => array(
+		'sqlsrv'    => array(
 			'driver'   => 'sqlsrv',
 			'host'     => 'localhost',
 			'database' => 'database',
@@ -94,7 +94,7 @@ return array(
 	| your application. Using this information, we can determine which of
 	| the migrations on disk haven't actually been run in the database.
 	|
-	*/
+	 */
 
 	'migrations' => 'migrations',
 
@@ -107,13 +107,13 @@ return array(
 	| provides a richer set of commands than a typical key-value systems
 	| such as APC or Memcached. Laravel makes it easy to dig right in.
 	|
-	*/
+	 */
 
 	'redis' => array(
 
 		'cluster' => false,
 
-		'default' => array(
+		'default'   => array(
 			'host'     => '127.0.0.1',
 			'port'     => 6379,
 			'database' => 0,

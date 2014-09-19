@@ -2,27 +2,31 @@
 
 class ReportsController extends \BaseController {
 
+	public function getReports() {
+		return View::make('reports.index');
+	}
+
 	public function horasTrabInterno($interno_id, $mesano) {
 		$data = explode('-', $mesano);
 
 		$interno = Interno::find($interno_id);
 
 		$res = DB::select('Select
-						a.data,
-						a.entrada,
-						a.saida,
-						(a.saida-a.entrada) as htrab,
-						(a.saida-a.entrada) - c.padrao_horatrabalho as horaextra
-					from
-						interno_frequencias a
-						inner join internos b on(a.interno_id = b.id)
-						inner join setors c on(b.setor_id = c.id)
-					where
-						a.interno_id = ? and
-						extract(month from a.data) = ? and
-						extract(year from a.data) = ?
-					order by
-						a.data', array($interno_id, $data[0], $data[1]));
+							a.data,
+							a.entrada,
+							a.saida,
+							(a.saida-a.entrada) as htrab,
+							(a.saida-a.entrada) - c.padrao_horatrabalho as horaextra
+						from
+							interno_frequencias a
+							inner join internos b on(a.interno_id = b.id)
+							inner join setors c on(b.setor_id = c.id)
+						where
+							a.interno_id = ? and
+							extract(month from a.data) = ? and
+							extract(year from a.data) = ?
+						order by
+							a.data', array($interno_id, $data[0], $data[1]));
 
 		$dados = array();
 
@@ -68,6 +72,39 @@ class ReportsController extends \BaseController {
 		return View::make('interno_frequencias.reports.horas_setor')
 			->with('dados', $res)
 			->with('data', $d[0].'-'.$d[1]);
+	}
+
+	public function getProdutividade($data) {
+
+		$data = explode('-', $data);
+		$d    = $data[2].'-'.$data[1].'-'.$data[0];
+
+		$dados = DB::select('select
+								a.descricao as setor,
+								d.data,
+								(Select
+									sum(c.saida - c.entrada)
+								from
+									internos b
+									inner join interno_frequencias c on(b.id = c.interno_id)
+								where
+									b.setor_id = a.id and
+									c.data = d.data) as horasTrabalhadas
+							from
+								setors a, interno_frequencias d
+							where
+								(Select sum(c.saida - c.entrada)
+								 from internos b inner join interno_frequencias c on(b.id = c.interno_id)
+								where b.setor_id = a.id) is not null
+								and
+								d.data = ?
+							group by
+								d.data, a.descricao, a.id
+							order by
+								d.data', array($d));
+
+		return View::make('reports.produtividade', compact('dados'))->with('data', $data);
+
 	}
 
 }

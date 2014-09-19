@@ -1,0 +1,26 @@
+<?php $__env->startSection('main'); ?>
+<div class="col-md-12">
+	<h1>Relatorio de Produtividade</h1>
+	<h3>Ref:  </h3>
+<?php if($dados): ?>
+	<table class="table table-condensed">
+					<tr>
+						<th>Setor</th>
+						<th>Qtde. Horas Trabalhadas</th>
+					</tr>
+
+					<?php foreach($dados as $val): ?>
+						<tr>
+							<td><?php echo $val->setor; ?></td>
+							<td><?php echo isset($val->horastrabalhadas) ? $val->horastrabalhadas : '00:00:00'; ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+</div>
+<?php else: ?>
+	<div class="well">Nenhum registro retornado</div>
+<?php endif; ?>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.report', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

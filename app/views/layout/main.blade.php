@@ -52,6 +52,7 @@
               Relatorios <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li>{{ link_to('reports/horaInterno', 'Relatorio de Horas Por Interno') }}</li>
+                <li>{{ link_to('reports', 'Relatorio Gerenciais') }}</li>
               </ul>
             </li>
             </li>

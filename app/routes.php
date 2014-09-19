@@ -24,3 +24,5 @@ Route::get('reports/horaInterno', function () {
 
 Route::get('report/{id}/{mesano}/horasInterno', 'ReportsController@horasTrabInterno');
 Route::get('report/{mesano}/horasSetor', 'ReportsController@horasTrabSetor');
+Route::get('reports', 'ReportsController@getReports');
+Route::get('report/{data}/produtividade', 'ReportsController@getProdutividade');
