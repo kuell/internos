@@ -10,6 +10,7 @@
 
 <?php
 $totalHora = "00:00:00";
+
 ?>
 <table class="table table-bordered">
 		<tr>
@@ -30,23 +31,21 @@ $totalHora = "00:00:00";
 								<td>Domingo</td>
 								<td>Domingo</td>
 								<td>Domingo</td>
-								<td>00:00:00</td>
+								<td>00:00</td>
 							</tr>
 						@else
 							<tr>
 								<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
-								<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['entrada'] or '' }}</td>
-								<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['saida'] or '' }}</td>
-								<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horasTrabalhadas'] or '' }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['entrada'] or '' }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['saida'] or '' }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'] or '' }}</td>
+								@if(!empty($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]))
+								<td>{{ InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho) }}</td>
 
-									@if(empty($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra']))
-										<td>00:00:00</td>
-									@elseif ($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] < 0)
-										<td>00:00:00</td>
-									@else
-										<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] }}</td>
-<?php $totalHora = InternoFrequencia::somaHora($totalHora, $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'])?>
-@endif
+<?php $totalHora = InternoFrequencia::somaHora($totalHora, InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho))?>
+@else
+								<td></td>
+							@endif
 							</tr>
 						@endif
 					@endfor
@@ -72,20 +71,18 @@ $totalHora = "00:00:00";
 						</tr>
 						@else
 						<tr>
+
 							<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
 							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['entrada'] or '' }}</td>
 							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['saida'] or '' }}</td>
 							<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horasTrabalhadas'] or '' }}</td>
+							@if(!empty($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]))
+								<td>{{ InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho) }}</td>
 
-								@if(empty($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra']))
-									<td>00:00:00</td>
-								@elseif ($dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] < 0)
-									<td>00:00:00</td>
-								@else
-
-									<td>{{ $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'] }}</td>
-<?php $totalHora = InternoFrequencia::somaHora($totalHora, $dados[$data[1].'-'.$data[0].'-'.$i]['horaExtra'])?>
-								@endif
+<?php $totalHora = InternoFrequencia::somaHora($totalHora, InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho))?>
+							@else
+								<td></td>
+							@endif
 							<tr>
 						@endif
 					@endfor

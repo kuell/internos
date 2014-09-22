@@ -15,8 +15,7 @@ class ReportsController extends \BaseController {
 							a.data,
 							a.entrada,
 							a.saida,
-							(a.saida-a.entrada) as htrab,
-							(a.saida-a.entrada) - c.padrao_horatrabalho as horaextra
+							(a.saida-a.entrada) as htrab
 						from
 							interno_frequencias a
 							inner join internos b on(a.interno_id = b.id)
@@ -33,8 +32,7 @@ class ReportsController extends \BaseController {
 		foreach ($res as $v) {
 			$dados[$v->data] = array('entrada' => $v->entrada,
 				'saida'                           => $v->saida,
-				'horasTrabalhadas'                => $v->htrab,
-				'horaExtra'                       => $v->horaextra);
+				'horasTrabalhadas'                => $v->htrab);
 		}
 
 		return View::make('internos.reports.horas_trabalhadas', compact('interno'))

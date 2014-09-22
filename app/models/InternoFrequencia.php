@@ -34,4 +34,31 @@ class InternoFrequencia extends \Eloquent {
 
 	}
 
+	public static function calcHoraExtra($hTrab, $hPot) {
+
+		$ht = explode(':', $hTrab);
+		$hp = explode(':', $hPot);
+
+		$h1 = ($ht[0]*60)+$ht[1];
+		$h2 = ($hp[0]*60)+$hp[1];
+
+		$min = $h1-$h2;
+
+		if ($min < 0) {
+			$hora   = '00';
+			$minuto = '00';
+		} else {
+			if ($min > 60) {
+				$hora   = '01';
+				$minuto = $min-60;
+			} else {
+				$hora   = '00';
+				$minuto = $min;
+			}
+		}
+
+		return $hora.':'.$minuto;
+
+	}
+
 }
