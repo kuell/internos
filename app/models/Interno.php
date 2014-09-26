@@ -22,6 +22,8 @@ class Interno extends Eloquent {
 	public function setCodInternoAttribute($codInterno) {
 		if ($codInterno == null) {
 			return $this->attributes['cod_interno'] = 0;
+		} else {
+			return $this->attributes['cod_interno'] = $codInterno;
 		}
 	}
 }

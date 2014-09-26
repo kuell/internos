@@ -18,7 +18,7 @@ class InternosController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		$internos = $this->internos->orderBy('situacao', 'desc')->orderBy('cod_interno')->get();
+		$internos = $this->internos->orderBy('situacao', 'desc')->orderBy('nome')->get();
 
 		return View::make('internos.index', compact('internos'));
 	}
