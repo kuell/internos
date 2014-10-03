@@ -60,7 +60,7 @@ $totalHora = "00:00:00";
 						<th>Horas Trabalhadas</th>
 						<th>Hora Extra</th>
 					</tr>
-					@for ($i = 17; $i < (cal_days_in_month(CAL_GREGORIAN, $data[0], $data[1]));$i++)
+					@for ($i = 16; $i < (cal_days_in_month(CAL_GREGORIAN, $data[0], $data[1]));$i++)
 						@if(date('N', strtotime($data[1].'-'.$data[0].'-'.$i)) == 7)
 						<tr class="danger">
 							<td>{{ date('d/m/Y', strtotime($data[1].'-'.$data[0].'-'.$i)) }}</td>
