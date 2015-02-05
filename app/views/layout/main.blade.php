@@ -21,6 +21,16 @@
   {{ HTML::script('assets/js/jquery-1.10.2.js') }}
   {{ HTML::script('assets/js/bootstrap.js') }}
   {{ HTML::script('assets/js/jquery.maskedinput.js') }}
+  {{ HTML::script('assets/js/jquery.dataTables.js') }}
+  {{ HTML::script('assets/js/dataTables.bootstrap.js') }}
+  <style type="text/css">
+    th.headerSortUp {
+      background-image: url(../img/small_asc.gif);
+      background-color: #3399FF;
+    }
+
+  </style>
+
   </head>
 
   <body>

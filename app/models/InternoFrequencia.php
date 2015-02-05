@@ -12,12 +12,6 @@ class InternoFrequencia extends \Eloquent {
 		return $d[2].'/'.$d[1].'/'.$d[0];
 	}
 
-	public function setDataAttribute($data) {
-		$d = explode('/', $data);
-
-		return $this->attributes['data'] = $d[2].'-'.$d[1].'-'.$d[0];
-	}
-
 	public static function somaHora($hora1, $hora2) {
 		$h1 = explode(':', $hora1);
 		$h2 = explode(':', $hora2);
@@ -38,26 +32,26 @@ class InternoFrequencia extends \Eloquent {
 
 		$ht = explode(':', $hTrab);
 		$hp = explode(':', $hPot);
-
+		
 		$h1 = ($ht[0]*60)+$ht[1];
+
 		$h2 = ($hp[0]*60)+$hp[1];
 
 		$min = $h1-$h2;
+		$hora = intval($min / 60);
+		$minuto = $min - ($hora*60);
 
-		if ($min < 0) {
-			$hora   = '00';
-			$minuto = '00';
-		} else {
-			if ($min > 60) {
-				$hora   = '01';
-				$minuto = $min-60;
-			} else {
-				$hora   = '00';
-				$minuto = $min;
+		if($min < 0){
+			$hora = 0;
+			$minuto = 0;
+		}
+		else{
+			if ($minuto > 60) {
+				$hora = $hora + 1;			
+				$minuto = $minuto;
 			}
 		}
-
-		return $hora.':'.$minuto;
+		return str_pad($hora, 2, 0, STR_PAD_LEFT).':'.str_pad($minuto, 2, 0, STR_PAD_LEFT);
 
 	}
 

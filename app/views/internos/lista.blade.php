@@ -1,10 +1,11 @@
 @if($internos->count())
-	<table class="table table-hover">
+	<table class="table table-hover" id="tabela">
 		<thead>
 			<tr>
-				<th>#</th>
+				<th>Cod. Interno</th>
 				<th>Nome</th>
 				<th>Setor</th>
+				<th>Ativo</th>
 				<th>Ativo</th>
 			</tr>
 		</thead>

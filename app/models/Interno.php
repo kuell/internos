@@ -7,7 +7,7 @@ class Interno extends Eloquent {
 		return $this->belongsTo('Setor', 'setor_id');
 	}
 
-	public function frequencia() {
+	public function frequencias() {
 		return $this->hasMany('InternoFrequencia', 'interno_id');
 	}
 
@@ -25,5 +25,16 @@ class Interno extends Eloquent {
 		} else {
 			return $this->attributes['cod_interno'] = $codInterno;
 		}
+	}
+
+	public static function getSetors() {
+		$internos = Interno::whereNotNull('setor_id')->where('setor_id', '>', '0')->get();
+
+		foreach ($internos->groupBy("setor_id") as $key => $val) {
+
+			$setors[Setor::find($key)->id] = Setor::find($key)->descricao;
+		}
+
+		return $setors;
 	}
 }

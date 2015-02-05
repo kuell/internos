@@ -12,20 +12,20 @@ class ReportsController extends \BaseController {
 		$interno = Interno::find($interno_id);
 
 		$res = DB::select('Select
-							a.data,
-							a.entrada,
-							a.saida,
-							(a.saida-a.entrada) as htrab
-						from
-							interno_frequencias a
-							inner join internos b on(a.interno_id = b.id)
-							inner join setors c on(b.setor_id = c.id)
-						where
-							a.interno_id = ? and
-							extract(month from a.data) = ? and
-							extract(year from a.data) = ?
-						order by
-							a.data', array($interno_id, $data[0], $data[1]));
+					a.data,
+					a.entrada,
+					a.saida,
+					(a.saida-a.entrada) as htrab
+				 from
+					interno_frequencias a
+					inner join internos b on(a.interno_id = b.id)
+					inner join setors c on(b.setor_id = c.id)
+				 where
+					a.interno_id = ? and
+					extract(month from a.data) = ? and
+					extract(year from a.data) = ?
+				 order by
+					a.data', array($interno_id, $data[0], $data[1]));
 
 		$dados = array();
 
@@ -102,6 +102,17 @@ class ReportsController extends \BaseController {
 								d.data', array($d));
 
 		return View::make('reports.produtividade', compact('dados'))->with('data', $data);
+
+	}
+
+	public function getPonto($data) {
+		$internos = Interno::whereNotNull('setor_id')->where('setor_id', '>', '0')->get();
+
+		foreach ($internos->groupBy("setor_id") as $key => $val) {
+			$setors[] = Setor::find($key);
+		}
+
+		return View::make('reports.ponto', compact('setors'))->with('data', $data);
 
 	}
 

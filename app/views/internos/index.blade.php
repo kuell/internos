@@ -6,4 +6,10 @@
 	<div>
 		@include('internos.lista')
 	</div>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+          $('#tabela').dataTable();
+      });
+	</script>
 @endsection
