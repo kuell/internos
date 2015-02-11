@@ -4,12 +4,24 @@
 	<h1>Relatorios Gerenciais</h1>
 
 	    <div class="form-group">
-	      {{ Form::label('data', 'Data: ') }}
-	      {{ Form::text('data', null, array('class'=>'form-control mesAno', 'id'=>'mesano') ) }}
-	    </div>
+	      {{ Form::label('data', 'Periodo: ') }}
+	      <div class="col-md-12">
+		   <div class="col-md-3">
+		   		{{ Form::text('datai', null, array('class'=>'form-control mesAno', 'id'=>'mesano') ) }}
+		   </div>
+		   <div class="col-md-1">
+		   	à
+		   </div>
+		   <div class="col-md-3">
+		      {{ Form::text('dataf', null, array('class'=>'form-control mesAno', 'id'=>'mesano') ) }}
+		   </div>
+	      </div>
 
-{{ link_to('#', 'Relatorio de Produtividade', array('class'=>'btn btn-success produtividade')) }}
-{{ link_to('#', 'Ponto Diario', array('class'=>'btn btn-success ponto')) }}
+	    <div class="col-md-12 well ">
+			{{ link_to('#', 'Relatorio de Produtividade', array('class'=>'btn btn-success produtividade')) }}
+			{{ link_to('#', 'Horas Trabalhadas p/ Setor', array('class'=>'btn btn-success horasSetor')) }}
+		</div>
+	</div>
 
 <script type="text/javascript">
 	$(function(){
@@ -28,7 +40,7 @@
 				};
 		})
 		$('.produtividade').click(function(){
-			mes = $('input[name=data]').val()
+			mes = $('input[name=datai]').val()
 
 			if( $('input[name=data]').val() == ''){
 				alert('O campo de referencia Mes/Ano deve ser preenchido!')
@@ -40,16 +52,17 @@
 			}
 		})
 
-		$('.ponto').click(function(){
-			mes = $('input[name=data]').val()
+		$('.horasSetor').click(function(){
+			datai = $('input[name=datai]').val()
+			dataf = $('input[name=dataf]').val()
 
-			if( $('input[name=data]').val() == ''){
+			if( $('input[name=datai]').val() == '' && $('input[name=dataf]').val()){
 				alert('O campo de referencia Mes/Ano deve ser preenchido!')
 				 $('input[name=data]').focus()
 				return false;
 			}
 			else{
-				open('/report/'+mes+'/ponto', 'Produtividade', 'channelmode=yes');
+				open('/report/'+datai+'/'+dataf+'/horasSetor', 'Produtividade', 'channelmode=yes');
 			}
 		})
 	})

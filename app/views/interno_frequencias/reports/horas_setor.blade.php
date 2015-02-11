@@ -3,11 +3,7 @@
 @section('main')
 <div class="col-md-12">
 	<h1>Controle de Horas Trabalhadas por Setor</h1>
-	<h3>Ref: {{ $data }} </h3>
-<?php
-$totalInterno = 0;
-?>
-@if ($dados)
+	<h3>Ref: {{ $periodo[0] }} a {{ $periodo[1] }} </h3>
 	<table class="table table-condensed">
 					<tr>
 						<th>Setor</th>
@@ -27,13 +23,10 @@ $totalInterno = 0;
 							<td>{{ $val->horastrabalhadas }}</td>
 							<th>{{ $val->horaspotenciais }} </th>
 						</tr>
-<?php
-$totalInterno = $val->internos+$totalInterno;
-?>
 					@endforeach
 					<tr>
 						<th>Totais: </th>
-						<th>{{ $totalInterno }}</th>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -41,9 +34,7 @@ $totalInterno = $val->internos+$totalInterno;
 					</tr>
 				</table>
 </div>
-@else
-	<div class="well">Nenhum registro retornado</div>
-@endif
 
+	<div class="well">Nenhum registro retornado</div>
 
 @endsection

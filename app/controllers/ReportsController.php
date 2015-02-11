@@ -15,7 +15,8 @@ class ReportsController extends \BaseController {
 					a.data,
 					a.entrada,
 					a.saida,
-					(a.saida-a.entrada) as htrab
+					(a.saida-a.entrada) as htrab,
+					a.justificativa
 				 from
 					interno_frequencias a
 					inner join internos b on(a.interno_id = b.id)
@@ -32,7 +33,8 @@ class ReportsController extends \BaseController {
 		foreach ($res as $v) {
 			$dados[$v->data] = array('entrada' => $v->entrada,
 				'saida'                           => $v->saida,
-				'horasTrabalhadas'                => $v->htrab);
+				'horasTrabalhadas'                => $v->htrab,
+				'justificativa'                   => $v->justificativa);
 		}
 
 		return View::make('internos.reports.horas_trabalhadas', compact('interno'))
@@ -41,67 +43,37 @@ class ReportsController extends \BaseController {
 
 	}
 
-	public function horasTrabSetor($data) {
-		$d = explode('-', $data);
+	public function horasTrabSetor($datai, $dataf) {
 
-		$data = $d[1].'-'.$d[0].'-01';
-
-		$res = DB::select('select
-								a.descricao as setor,
-								a.padrao_horatrabalho as horabase,
+		$res = DB::select("select
+								c.id,
+								c.descricao as setor,
+								c.padrao_horatrabalho as horabase,
 								count(distinct(b.id)) as internos,
-								count(distinct(c.data)) as qtddias,
-								f_horastrabalhadas(a.id, ?) as horastrabalhadas,
-								f_horaspotenciais(a.id, ?) as horaspotenciais
+								count(distinct(a.data)) as qtdDias,
+								(count(distinct(a.data)) * count(distinct(b.id))) * interval '7:20 hour' as horaspotenciais,
+								sum(a.saida - a.entrada) as horasTrabalhadas
 							from
-								setors a
-								inner join internos b on a.id = b.setor_id
-								inner join interno_frequencias c on b.id = c.interno_id
+								interno_frequencias a
+								inner join internos b on a.interno_id = b.id
+								inner join setors c on b.setor_id = c.id
 							where
-								f_horaspotenciais(a.id, ?) is not null and
-								extract(month from c.data) = ? and
-								extract(year from c.data) = ?
+								a.data between ? and ?
 							group by
-								a.descricao, horastrabalhadas, horaspotenciais, horabase
-							order by
-								a.descricao
-								', array($data, $data, $data, $d[0], $d[1]));
+								c.id", [$datai, $dataf]);
 
 		return View::make('interno_frequencias.reports.horas_setor')
 			->with('dados', $res)
-			->with('data', $d[0].'-'.$d[1]);
+			->with('periodo', [$datai, $dataf]);
+
 	}
 
 	public function getProdutividade($data) {
 
 		$data = explode('-', $data);
-		$d    = $data[2].'-'.$data[1].'-'.$data[0];
+		//$setor 	= Frequencia
 
-		$dados = DB::select('select
-								a.descricao as setor,
-								d.data,
-								(Select
-									sum(c.saida - c.entrada)
-								from
-									internos b
-									inner join interno_frequencias c on(b.id = c.interno_id)
-								where
-									b.setor_id = a.id and
-									c.data = d.data) as horasTrabalhadas
-							from
-								setors a, interno_frequencias d
-							where
-								(Select sum(c.saida - c.entrada)
-								 from internos b inner join interno_frequencias c on(b.id = c.interno_id)
-								where b.setor_id = a.id) is not null
-								and
-								d.data = ?
-							group by
-								d.data, a.descricao, a.id
-							order by
-								d.data', array($d));
-
-		return View::make('reports.produtividade', compact('dados'))->with('data', $data);
+		//return View::make('reports.produtividade', compact('dados'))->with('data', $data);
 
 	}
 

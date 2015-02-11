@@ -22,6 +22,7 @@ $totalHora = "00:00:00";
 						<th>Saida</th>
 						<th>Horas Trabalhadas</th>
 						<th>Hora Extra</th>
+						<th>Just.</th>
 					</tr>
 					@for ($i = 1; $i < (cal_days_in_month(CAL_GREGORIAN, $data[0], $data[1])-14);$i++)
 						<tr>
@@ -32,6 +33,7 @@ $totalHora = "00:00:00";
 								<td>Domingo</td>
 								<td>Domingo</td>
 								<td>00:00</td>
+								<td>-</td>
 							</tr>
 						@else
 							<tr>
@@ -39,8 +41,10 @@ $totalHora = "00:00:00";
 								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['entrada'] or '' }}</td>
 								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['saida'] or '' }}</td>
 								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'] or '' }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'] or '' }}</td>
 								@if(!empty($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]))
 								<td>{{ InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho) }}</td>
+								<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['justificativa'] or '' }}</td>
 
 <?php $totalHora = InternoFrequencia::somaHora($totalHora, InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho))?>
 @else
@@ -59,6 +63,7 @@ $totalHora = "00:00:00";
 						<th>Saida</th>
 						<th>Horas Trabalhadas</th>
 						<th>Hora Extra</th>
+						<th>Just.</th>
 					</tr>
 					@for ($i = 16; $i < (cal_days_in_month(CAL_GREGORIAN, $data[0], $data[1]));$i++)
 						@if(date('N', strtotime($data[1].'-'.$data[0].'-'.$i)) == 7)
@@ -68,6 +73,7 @@ $totalHora = "00:00:00";
 							<td>Domingo</td>
 							<td>Domingo</td>
 							<td>00:00:00</td>
+							<td>-</td>
 						</tr>
 						@else
 						<tr>
@@ -79,8 +85,9 @@ $totalHora = "00:00:00";
 							@if(!empty($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]))
 								<td>{{ InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho) }}</td>
 
+							<td>{{ $dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['justificativa'] or '' }}</td>
 <?php $totalHora = InternoFrequencia::somaHora($totalHora, InternoFrequencia::calcHoraExtra($dados[$data[1].'-'.$data[0].'-'.str_pad($i, 2, "0", STR_PAD_LEFT)]['horasTrabalhadas'], $interno->setor->padrao_horatrabalho))?>
-							@else
+@else
 								<td></td>
 							@endif
 							<tr>

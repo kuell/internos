@@ -8,12 +8,13 @@
 	      {{ Form::select('setor_id', array('0'=>'Selecione...')+Interno::getSetors(), null, array('class'=>'form-control', 'id'=>'interno_id'))  }}
 	    </div>
 	    <div class="form-group">
-	      {{ Form::label('data', 'Mes/Ano: ') }}
+	      {{ Form::label('data', 'Data: ') }}
 	      {{ Form::text('data', null, array('class'=>'form-control data', 'id'=>'data') ) }}
 	    </div>
 
 	{{ link_to('#', 'Adicionar', array('class'=>'btn btn-success abre')) }}
-	{{ link_to('#', 'Horas Trabalhadas p/ Setor', array('class'=>'btn btn-success setorAbre')) }}
+	{{ link_to('#', 'Ponto Diario', array('class'=>'btn btn-success ponto')) }}
+
 {{ Form::close() }}
 
 <script type="text/javascript">
@@ -37,8 +38,8 @@
 				open('/frequencia/create?'+$('form[name=form]').serialize(), 'Frequencia', 'channelmode=yes');
 				};
 		})
-		$('.setorAbre').click(function(){
-			mes = $('input[name=data]').val()
+		$('.ponto').click(function(){
+			data = $('input[name=data]').val()
 
 			if( $('input[name=data]').val() == ''){
 				alert('O campo de referencia Mes/Ano deve ser preenchido!')
@@ -46,7 +47,7 @@
 				return false;
 			}
 			else{
-				open('/report/'+mes+'/horasSetor', 'Frequencia', 'channelmode=yes');
+				open('/report/'+data+'/ponto', 'Frequencia', 'channelmode=yes');
 			}
 		})
 	})
